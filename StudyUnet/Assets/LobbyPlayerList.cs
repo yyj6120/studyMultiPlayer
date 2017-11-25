@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class LobbyPlayerList : MonoBehaviour
 {
@@ -15,21 +16,21 @@ public class LobbyPlayerList : MonoBehaviour
         netManager = NetworkManager.instance;
         if (netManager != null)
         {
-            netManager.playerJoined += PlayerJoined;
-            netManager.playerLeft += PlayerLeft;
+            //netManager.playerJoined += PlayerJoined;
+            //netManager.playerLeft += PlayerLeft;
             netManager.serverPlayersReadied += PlayersReadied;
         }
     }
 
-    protected virtual void PlayerJoined(TanksNetworkPlayer player)
-    {
-        Debug.LogFormat("Player joined {0}", player.name);
-    }
+    //protected virtual void PlayerJoined(TanksNetworkPlayer player)
+    //{
+    //    Debug.LogFormat("Player joined {0}", player.name);
+    //}
 
-    protected virtual void PlayerLeft(TanksNetworkPlayer player)
-    {
-        Debug.LogFormat("Player left {0}", player.name);
-    }
+    //protected virtual void PlayerLeft(TanksNetworkPlayer player)
+    //{
+    //    Debug.LogFormat("Player left {0}", player.name);
+    //}
 
     protected virtual void PlayersReadied()
     {

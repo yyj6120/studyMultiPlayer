@@ -14,18 +14,45 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField]
     protected GameObject m_LobbyPrefab;
 
+    [SyncVar(hook = "OnReadyChanged")]
+    private bool ready = false;
+
+    public bool Ready
+    {
+        get
+        {
+            return ready;
+        }
+    }
+
     [ClientRpc]
     public void RpcPrepareForLoad()
     {
         if (isLocalPlayer)
         {
             // Show loading screen
-            LoadingModal loading = LoadingModal.s_Instance;
+            LoadingModal loading = LoadingModal.instance;
 
             if (loading != null)
             {
                 loading.FadeIn();
             }
         }
+    }
+
+    private void OnReadyChanged(bool value)
+    {
+        ready = value;
+
+        if (syncVarsChanged != null)
+        {
+            syncVarsChanged(this);
+        }
+    }
+
+    [Server]
+    public void ClearReady()
+    {
+        ready = false;
     }
 }
